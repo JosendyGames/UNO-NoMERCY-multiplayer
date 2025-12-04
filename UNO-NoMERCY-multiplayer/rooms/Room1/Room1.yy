@@ -13,8 +13,8 @@
   ],
   "name":"Room1",
   "parent":{
-    "name":"NO-NoMERCY-multiplayer",
-    "path":"NO-NoMERCY-multiplayer.yyp",
+    "name":"UNO-NoMERCY-multiplayer",
+    "path":"UNO-NoMERCY-multiplayer.yyp",
   },
   "parentRoom":null,
   "physicsSettings":{
