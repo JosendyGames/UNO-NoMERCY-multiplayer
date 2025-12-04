@@ -15,6 +15,5 @@
 
 		// - Update GUI -
 			display_set_gui_size(global.game.camera_width, global.game.camera_height);
-
 	}
 	
