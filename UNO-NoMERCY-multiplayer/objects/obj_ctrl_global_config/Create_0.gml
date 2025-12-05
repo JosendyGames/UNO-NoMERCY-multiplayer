@@ -1,62 +1,64 @@
 /// @description
 randomise();
 
-// - Testing Vars -
-	var test_player_total = 2;		// - Total Players -
-	var test_player_add = 1;		// - Id Player -
+// - Variables de Prueba -
+	var test_player_total = 5;		// - Total Players -
+	var test_player_add = 0;		// - Id Player -
 
-// - Config Application Global -
-	global.app = {
-		resize: (display_get_width() + display_get_height()) / 760
-	}
-
-// - Config Game Global -
-	global.game = {
-		camera_width: 360,
-		camera_height: 240
-	}
-
-// - Config Template Global -
-	global.template = {
-		card_list: {
-			"type": "",					// - red, blue, yellow, green, special -
-			"index": 0,					// - 0 / 9, (10) = reverse, (11) = block, (12) = +2, (13) = +4, (14) = repeat, (15) = descart -
-			"x": 0,		"y": 0,			// - Position -
-			"newX": 0,	"newY": 0,		// - New Position -
+// - (Globales) Configurar Plantillas -
+	global.tmpl = {
+		card: {
+			type: "",							// red, blue, yellow, green, special
+	        index: 0,							// 0–9 / reversa / bloqueo / +2 / +4 / repetir / descartar
+	        x: 0,      y: 0,					// posicion
+	        new_x: 0,  new_y: 0,				// nueva posicion
+	        scale: -1,   new_scale: 1,			// escala de cara
 		}
 	}
 
-// - Config Server Global -
-	global.server = {
-		// - Cards Config - 
-			card_spawn: 7,					// - Count Card In Spawn -
-			card_spawn_lvl_normal: 9,		// - Count Spawn Level Normal -
-			card_spawn_lvl_special: 1,		// - Count Spawn Level Special -
-			card_limit: 25,					// - Count Limit Cards -
-			card_played_list: [variable_clone(global.template.card_list)],	// - List Played Cards -
-		
-		// - Players Config - 
-			players_list: [],				// - List Players In Game -
-			players_turn_index: 1,			// - Num Player Turn -
-		
-		// - Game Config -
-			game_reverse: false,			// - Boolean Game Reverse -
-			game_add: 0						// - Count Eat Cards -
+// - (Globales) Configurar Variables de Aplicacion -
+	global.app = {
+		resize: (display_get_width() + display_get_height()) / 800 // 760
 	}
-	
-	// - Config First Card -
-		global.server.card_played_list[0].type = choose("red", "blue", "yellow", "green", "special");
-		global.server.card_played_list[0].index = irandom(9);
 
-	/*/- Generate Players -
-	for (var i = 1; i <= player_total; i++) {
+// - (Globales) Configurar Variables del Juego -
+	global.game = {
+		camera: {
+			width: 360,
+			height: 240
+		}
+	}
+
+// - (Globales) Configurar Variables del Servidor  -
+	global.srv = {
+		card: {
+			spawn_amount: 24,
+			spawn_normal: 10,
+			spawn_special: 1,
+			limit: 25
+		},
+		cards_played: [variable_clone(global.tmpl.card)],
+		
+		game_turn: 0,
+		game_reverse: false,
+		game_eat_cards: 0,
+		
+		players_list: []
+	}
+
+// - Update Player List -
+	for (var i = 0; i < test_player_total; i++) {
 		// - Add Blank Space -
-			array_push(global.serv_players_list, noone);
+			array_push(global.srv.players_list, noone);
 	
 		// - Create Instances -
-			if (i == player_local_add) {global.serv_players_list[i] = instance_create_depth(0, 0, y, obj_game_local_player);} 
-			else {global.serv_players_list[i] = instance_create_depth(0, 0, y, obj_game_local_npc);}
+			if (i == test_player_add) {global.srv.players_list[i] = instance_create_depth(16 * 3 + (16 * i), 8, y, obj_game_local_player);} 
+			else {global.srv.players_list[i] = instance_create_depth(16 * 3 + (16 * i), 8, y, obj_game_local_npc);}
 		
 		// - Asign ID -
-			global.serv_players_list[i].players_id = i;	
+			global.srv.players_list[i].player_ID = i;
 	}
+
+// - Update First Card Played -
+	global.srv.cards_played[0].type = choose("red", "blue", "yellow", "green");
+	global.srv.cards_played[0].index = irandom(9);
