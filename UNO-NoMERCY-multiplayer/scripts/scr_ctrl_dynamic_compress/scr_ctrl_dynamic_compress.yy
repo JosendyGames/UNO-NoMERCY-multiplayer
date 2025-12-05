@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_ctrl_dynamic_compress",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_ctrl_dynamic_compress",
+  "parent":{
+    "name":"Script",
+    "path":"folders/Script.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
